@@ -1,0 +1,12 @@
+query{
+    SearchMealsByLetter(letter : "A"){
+    meals {
+          idMeal
+          strMeal
+          strCategory
+          strArea
+          strInstructions
+          strMealThumb
+        }
+    }
+}
