@@ -125,7 +125,6 @@ dependencies {
 
     // SystemBars
     implementation (libs.accompanist.systemuicontroller)
-//    implementation(libs.androidx.swiperefreshlayout)
     implementation (libs.accompanist.swiperefresh.v02413rc)
 
     implementation(libs.wave)
