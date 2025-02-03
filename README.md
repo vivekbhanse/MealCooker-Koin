@@ -4,6 +4,8 @@ Overview
 
 MyKoinApp is a Jetpack Compose-based Android application that integrates various modern Android libraries, including Koin for dependency injection, Room for local storage, Retrofit for network operations, and biometric authentication for secure login.
 
+![Uploading image.png…]()
+
 🔧 Dependencies Used
 
 🏗 Core Libraries
