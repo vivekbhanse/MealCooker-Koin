@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface MealRepository {
     suspend fun getMealsByLetter(letter:String):Flow<ApiResult<MealResponse>>
     suspend fun getMealsByCategory():Flow<ApiResult<CategoryResponse>>
+    suspend fun getMealsById(mealId:String):Flow<ApiResult<MealResponse>>
 }

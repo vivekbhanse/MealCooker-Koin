@@ -20,7 +20,7 @@ fun ShowMealListWithSwipeRefresh(navController: NavController) {
     LaunchedEffect(refreshing) {
         if (refreshing) {
             refreshTrigger = !refreshTrigger // Toggle to trigger recomposition
-            delay(3000) // Simulate API call
+            delay(1000) // Simulate API call
             refreshing = false
         }
     }

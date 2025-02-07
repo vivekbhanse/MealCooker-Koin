@@ -14,17 +14,23 @@ import kotlinx.coroutines.flow.onStart
 
 class MealRepositoryImpl(private val apiService: ApiService) : MealRepository {
     override suspend fun getMealsByLetter(letter: String): Flow<ApiResult<MealResponse>> = flow {
-        emit(ApiResult.Loading)  // Emit loading state
-        val response = apiService.getMealsByLetter(letter) // Make the API call
-        emit(ApiResult.Success(response)) // Emit success with data
-    }.onStart { emit(ApiResult.Loading) } // Ensure loading state at start
+        emit(ApiResult.Loading)
+        val response = apiService.getMealsByLetter(letter)
+        emit(ApiResult.Success(response))
+    }.onStart { emit(ApiResult.Loading) }
         .catch { e -> emit(ApiResult.Error(e.message ?: "Error")) } // Handle errors
 
     override suspend fun getMealsByCategory(): Flow<ApiResult<CategoryResponse>> = flow {
-        emit(ApiResult.Loading)  // Emit loading state
-        val response = apiService.getMealsByCategory() // Make the API call
-        emit(ApiResult.Success(response)) // Emit success with data
-    }.onStart { emit(ApiResult.Loading) } // Ensure loading state at start
+        emit(ApiResult.Loading)
+        val response = apiService.getMealsByCategory()
+        emit(ApiResult.Success(response))
+    }.onStart { emit(ApiResult.Loading) }
         .catch { e -> emit(ApiResult.Error(e.message ?: "Error")) } //
+
+    override suspend fun getMealsById(mealId: String): Flow<ApiResult<MealResponse>> = flow {
+        emit(ApiResult.Loading)
+        val response = apiService.getMealsById(mealId = mealId)
+        emit(ApiResult.Success(response))
+    }.onStart { emit(ApiResult.Loading) }.catch { e -> emit(ApiResult.Error(e.message ?: "Error")) }
 }
 
