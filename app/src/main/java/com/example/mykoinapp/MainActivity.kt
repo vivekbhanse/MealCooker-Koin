@@ -75,7 +75,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     MealDetailScreen(navController = navController,mealId = mealId ) // Pass the data
                 }
                 composable(Screen.Favorites.route) { FavMealListScreen() }
-//                composable(Screen.Profile.route) { ProfileScreen() }
+                composable(Screen.Profile.route) {  }
+                composable(Screen.Search.route) {  }
             }
         }
     }

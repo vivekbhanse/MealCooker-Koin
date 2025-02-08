@@ -1,6 +1,5 @@
 package com.example.mykoinapp.presentation.mealsSeletion
 
-import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,17 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mykoinapp.data.dto.MealResponse
 import com.example.mykoinapp.data.local.roomdb.MealEntity
-import com.example.mykoinapp.domain.repository.FavMealRepository
 import com.example.mykoinapp.domain.states.ApiResult
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.androidx.compose.get
 
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.context.GlobalContext.getOrNull
 import timber.log.Timber
 
 
@@ -83,7 +78,8 @@ fun MealDetailScreen(navController: NavController, mealId: String) {
 fun MealDetailScreenView(data: MealResponse) {
     var isFavorite by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    //val mealRepository: FavMealRepository? = get()
+
+//    val viewmodel : MealDetailsViewModel = koinViewModel()
     data.meals?.let { meal ->
         val mealEntity = MealEntity(
             name = meal[0].strMeal,
@@ -112,7 +108,7 @@ fun MealDetailScreenView(data: MealResponse) {
 
                             // Save to database
                             CoroutineScope(Dispatchers.IO).launch {
-                                //  mealRepository.insertMeal(mealEntity)
+//                                viewmodel.saveFavMealDB(mealEntity)
                                 Timber.d("MealDetailScreenView","Added to favorites!")
                             }
                         }

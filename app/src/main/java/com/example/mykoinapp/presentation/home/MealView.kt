@@ -36,7 +36,7 @@ fun MealScreen(
     val mealStateCategory by homeViewModel.mealStateCategory.collectAsState()
 
     LaunchedEffect(Unit,refreshTrigger) {
-        homeViewModel.getMealByLetter("c") // Fetch meals when screen loads
+        homeViewModel.getMealByLetter("s") // Fetch meals when screen loads
     }
 
     when (mealState) {

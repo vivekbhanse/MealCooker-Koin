@@ -3,7 +3,7 @@ accompanistInsets = "0.30.0"
 accompanistSwiperefresh = "0.24.13-rc"
 accompanistSystemuicontroller = "0.36.0"
 agp = "8.5.2"
-apolloRuntime = "3.8.2"
+apolloRuntime = "3.8.5"
 biometric = "1.2.0-alpha05"
 coil = "2.5.0"
 coilCompose = "2.5.0"
@@ -11,10 +11,10 @@ compiler = "1.5.15"
 compilerHosted = "1.5.15"
 converterGson = "2.9.0"
 foundation = "1.7.7"
-koinAndroid = "4.0.2"
-koinAndroidVersion = "3.4.0"
-koinAndroidxScope = "4.0.2"
-koinAndroidxViewmodel = "4.0.2"
+koinAndroid = "3.5.0"
+koinAndroidVersion = "3.5.0"
+koinAndroidxScope = "3.5.0"
+koinAndroidxViewmodel = "3.5.0"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -36,11 +36,8 @@ timber = "5.0.1"
 wave = "1.0.0"
 
 [libraries]
-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanistInsets" }
-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistInsets" }
 accompanist-swiperefresh-v02413rc = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
-androidx-compiler-hosted = { module = "androidx.compose.compiler:compiler-hosted", version.ref = "compilerHosted" }
 androidx-compiler-v151 = { module = "androidx.compose.compiler:compiler", version.ref = "compiler" }
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

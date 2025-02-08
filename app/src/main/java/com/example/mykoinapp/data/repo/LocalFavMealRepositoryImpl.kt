@@ -1,19 +1,17 @@
 package com.example.mykoinapp.data.repo
 
-import com.example.mykoinapp.data.dto.Meal
 import com.example.mykoinapp.data.dto.MealDB
-import com.example.mykoinapp.data.local.roomdb.MealDao
 import com.example.mykoinapp.data.local.roomdb.MealEntity
-import com.example.mykoinapp.domain.repository.FavMealRepository
+import com.example.mykoinapp.domain.repository.LocalFavMealRepository
 
-class FavMealRepositoryImpl(private val favMealRepository: FavMealRepository) : FavMealRepository {
+class LocalFavMealRepositoryImpl(private val localFavMealRepository: LocalFavMealRepository) : LocalFavMealRepository {
 
     override suspend fun getMeals(): List<MealEntity> {
-        return favMealRepository.getMeals()
+        return localFavMealRepository.getMeals()
     }
 
     override suspend fun insertMeal(meal: MealEntity) {
-        favMealRepository.insertMeal(meal)
+        localFavMealRepository.insertMeal(meal)
     }
 
     private fun MealEntity.toDomainModel() =

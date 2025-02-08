@@ -20,10 +20,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
+import org.koin.androidx.compose.getKoin
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun FavMealListScreen(viewModel: FavoriteMealViewModel = koinViewModel()) {
+fun FavMealListScreen() {
+//     val viewModel = FavoriteMealViewModel(getKoin().get())
+    val viewModel: FavoriteMealViewModel = koinViewModel()
     val favMeals by viewModel.mealFavorite.collectAsState()
     val navController = rememberNavController()
     if (favMeals.isEmpty()) {
@@ -40,7 +43,6 @@ fun FavMealListScreen(viewModel: FavoriteMealViewModel = koinViewModel()) {
             )
         }
     } else {
-
         LazyColumn {
             val mealData = favMeals
             mealData.let {
