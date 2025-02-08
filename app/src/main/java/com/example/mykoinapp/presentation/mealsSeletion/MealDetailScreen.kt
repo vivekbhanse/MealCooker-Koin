@@ -34,6 +34,7 @@ import com.example.mykoinapp.data.dto.MealResponse
 import com.example.mykoinapp.data.local.roomdb.MealEntity
 import com.example.mykoinapp.domain.states.ApiResult
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
+import com.example.mykoinapp.presentation.home.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,8 +44,8 @@ import timber.log.Timber
 
 
 @Composable
-fun MealDetailScreen(navController: NavController, mealId: String) {
-    val mealDetailsViewModel = koinViewModel<MealDetailsViewModel>()
+fun MealDetailScreen(navController: NavController, mealId: String, mealDetailsViewModel: MealDetailsViewModel = koinViewModel()) {
+  //  val mealDetailsViewModel = koinViewModel<MealDetailsViewModel>()
     val mealByIdState by mealDetailsViewModel.mealIdState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -107,10 +108,10 @@ fun MealDetailScreenView(data: MealResponse) {
                             isFavorite = !isFavorite
 
                             // Save to database
-                            CoroutineScope(Dispatchers.IO).launch {
-//                                viewmodel.saveFavMealDB(mealEntity)
-                                Timber.d("MealDetailScreenView","Added to favorites!")
-                            }
+//                            CoroutineScope(Dispatchers.IO).launch {
+////                                viewmodel.saveFavMealDB(mealEntity)
+//                                Timber.d("MealDetailScreenView","Added to favorites!")
+//                            }
                         }
                         .border(
                             width = 2.dp, // Border thickness

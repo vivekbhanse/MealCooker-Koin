@@ -15,15 +15,13 @@ import com.example.mykoinapp.domain.usecases.SaveUnSaveMealUseCase
 import com.example.mykoinapp.presentation.fav_meal.FavoriteMealViewModel
 import com.example.mykoinapp.presentation.home.HomeViewModel
 import com.example.mykoinapp.presentation.mealsSeletion.MealDetailsViewModel
-
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val appModule: Module = module {
-
-    // Retrofit instance (singleton)
+// Data Module (for Retrofit, Room, and DAOs)
+val dataModule = module {
     single {
         Retrofit.Builder()
             .baseUrl("https://www.themealdb.com/api/json/v1/1/")
@@ -32,39 +30,43 @@ val appModule: Module = module {
             .create(ApiService::class.java)
     }
 
-    // Room Database (singleton)
     single {
         Room.databaseBuilder(
-            get(), // Context is injected automatically by Koin
+            get(),
             AppDatabase::class.java,
             "meal_database"
         ).fallbackToDestructiveMigration()
             .build()
     }
 
-    // Provide MealDao instance (singleton)
     single { get<AppDatabase>().mealDao() }
+}
 
-    // Repositories
+// Repository Module
+val repositoryModule = module {
     factory<MealRepository> { MealRepositoryImpl(get()) }
     factory<LocalFavMealRepository> { LocalFavMealRepositoryImpl(get()) }
+}
 
-    // UseCase instances
+// UseCase Module
+val useCaseModule = module {
     factory<LetterApiUseCase> { LetterApiUseCase(get()) }
     factory<CategoryApiUseCase> { CategoryApiUseCase(get()) }
     factory { MealByIdUseCase(get()) }
     factory { FavoriteMealsUseCase(get()) }
     factory { SaveUnSaveMealUseCase(get()) }
-
-    // ViewModel definitions (with factory for new instance each time)
-    factory { HomeViewModel(get(), get()) }
-
-    // For parameterized ViewModels, use parametersOf()
-    factory {
-        MealDetailsViewModel(get(), get())
-    }
-
-    factory {
-        FavoriteMealViewModel(get())
-    }
 }
+
+// ViewModel Module
+val viewModelModule = module {
+    factory { HomeViewModel(get(), get()) }
+    factory { MealDetailsViewModel(get(), get()) }
+    factory { FavoriteMealViewModel(get()) }
+}
+
+// App Module (combining all other modules)
+val appModule = module {
+    includes(dataModule, repositoryModule, useCaseModule, viewModelModule)
+}
+
+
