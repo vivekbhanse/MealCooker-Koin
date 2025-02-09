@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.draw.clip
@@ -67,7 +69,7 @@ fun AppTopBar() {
 
 
 @Composable
-fun EnhancedImageFromUrl(strMeal: String,height:Int) {
+fun EnhancedImageFromUrl(strMeal: String, height: Int) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current).data(strMeal)
             .placeholder(R.drawable.dessert) // Placeholder while loading
@@ -102,12 +104,18 @@ fun ShowMealHorizontal(data: CategoryResponse) {
                     modifier = Modifier
                         .padding(8.dp)
                         .wrapContentHeight()
-                        .width(300.dp) // Adjust width for horizontal scrolling
+                        .width(300.dp),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 10.dp
+                    )
                 ) {
                     Column(modifier = Modifier.background(backgroundColor)) {
-                        EnhancedImageFromUrl(mealData[index].strCategoryThumb,100) // Pass image URL
+                        EnhancedImageFromUrl(
+                            mealData[index].strCategoryThumb,
+                            100
+                        ) // Pass image URL
                         Text(
-                            text = "${index+1}. Category : ${mealData[index].strCategory}",
+                            text = "${index + 1}. Category : ${mealData[index].strCategory}",
                             modifier = Modifier.padding(8.dp),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,7 +26,9 @@ import com.example.mykoinapp.data.dto.MealResponse
 import com.example.mykoinapp.domain.states.ApiResult
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 @Composable
 fun MealScreen(
@@ -64,13 +68,24 @@ fun MealScreen(
 
 @Composable
 fun ShowMealList(data: MealResponse,navController: NavController) {
+    val isClicked = remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(1000) // Prevent clicks for 1 second (adjust delay as needed)
+        isClicked.value = false // Re-enable clicking after the delay
+    }
     LazyColumn {
         val mealData = data.meals
         mealData?.let {
             items(it.size) { index ->
                 val backgroundColor = if (index % 2 == 0) DeepBlue else SlateGray
                 Card(modifier = Modifier.padding(8.dp).clickable {
-                    navController.navigate("mealDetail/${mealData[index].idMeal}")
+                    if (!isClicked.value){
+                        isClicked.value = true
+                        Timber.d("Clicked Item ${mealData[index].idMeal}")
+                        navController.navigate("mealDetail/${mealData[index].idMeal}")
+                    }
+
+
                 }) { // Add padding for spacing
                     Column(modifier = Modifier.background(backgroundColor)) {
                         EnhancedImageFromUrl(mealData[index].strMealThumb, 250) // Pass image URL

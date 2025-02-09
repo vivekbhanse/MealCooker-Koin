@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
+import com.example.mykoinapp.Greeting
+import com.example.mykoinapp.presentation.Screen
 
 @Composable
 fun BiometricAuthScreen(navController: NavController) {
@@ -27,6 +29,7 @@ fun BiometricAuthScreen(navController: NavController) {
     }
 
     showBiometricPrompt(context as FragmentActivity,navController)
+    Greeting("")
 }
 
 private fun showBiometricPrompt(activity: FragmentActivity,navController: NavController) {
@@ -39,7 +42,7 @@ private fun showBiometricPrompt(activity: FragmentActivity,navController: NavCon
 
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
             super.onAuthenticationSucceeded(result)
-            navController.navigate("mealScreen") {
+            navController.navigate(Screen.MealDetailsPage.route) {
                 popUpTo(navController.graph.startDestinationId) { inclusive = false }
             }
         }
@@ -57,4 +60,6 @@ private fun showBiometricPrompt(activity: FragmentActivity,navController: NavCon
         .build()
 
     biometricPrompt.authenticate(promptInfo)
+
+
 }

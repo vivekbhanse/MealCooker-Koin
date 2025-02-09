@@ -20,13 +20,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
-import org.koin.androidx.compose.getKoin
+import org.koin.androidx.compose.getViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FavMealListScreen() {
-//     val viewModel = FavoriteMealViewModel(getKoin().get())
-    val viewModel: FavoriteMealViewModel = koinViewModel()
+    val viewModel: FavoriteMealViewModel = getViewModel()
     val favMeals by viewModel.mealFavorite.collectAsState()
     val navController = rememberNavController()
     if (favMeals.isEmpty()) {
@@ -51,7 +50,7 @@ fun FavMealListScreen() {
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .clickable {
-                            navController.navigate("mealDetail/${mealData[index].id}")
+                          //  navController.navigate("mealDetail/${mealData[index].id}")
                         }) { // Add padding for spacing
                         Column(modifier = Modifier.background(backgroundColor)) {
                             EnhancedImageFromUrl(mealData[index].imgThumb, 250) // Pass image URL

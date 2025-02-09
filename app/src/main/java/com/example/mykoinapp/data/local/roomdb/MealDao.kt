@@ -13,4 +13,9 @@ interface MealDao {
     @Query("SELECT * FROM `favorite-meals`")
     suspend fun getAllFavoriteMeals(): List<MealEntity>
 
+    @Query("SELECT EXISTS(SELECT * FROM `favorite-meals` WHERE id = :mealId)")
+    suspend fun doesMealExist(mealId: Int): Boolean
+
+    @Query("DELETE FROM `favorite-meals` WHERE id = :mealId")
+    suspend fun deleteMealById(mealId: Int)
 }

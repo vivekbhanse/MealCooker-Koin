@@ -33,19 +33,21 @@ import androidx.navigation.NavController
 import com.example.mykoinapp.data.dto.MealResponse
 import com.example.mykoinapp.data.local.roomdb.MealEntity
 import com.example.mykoinapp.domain.states.ApiResult
+import com.example.mykoinapp.presentation.fav_meal.FavoriteMealViewModel
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
 import com.example.mykoinapp.presentation.home.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
 @Composable
-fun MealDetailScreen(navController: NavController, mealId: String, mealDetailsViewModel: MealDetailsViewModel = koinViewModel()) {
-  //  val mealDetailsViewModel = koinViewModel<MealDetailsViewModel>()
+fun MealDetailScreen(navController: NavController, mealId: String) {
+    val mealDetailsViewModel: MealDetailsViewModel = getViewModel()
     val mealByIdState by mealDetailsViewModel.mealIdState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -78,17 +80,29 @@ fun MealDetailScreen(navController: NavController, mealId: String, mealDetailsVi
 @Composable
 fun MealDetailScreenView(data: MealResponse) {
     var isFavorite by remember { mutableStateOf(false) }
-    val context = LocalContext.current
 
-//    val viewmodel : MealDetailsViewModel = koinViewModel()
+    val context = LocalContext.current
+    val viewmodel: MealDetailsViewModel = koinViewModel()
+
+
+
     data.meals?.let { meal ->
         val mealEntity = MealEntity(
+            id = meal[0].idMeal.toInt(),
             name = meal[0].strMeal,
             area = meal[0].strArea,
             category = meal[0].strCategory,
             instructions = meal[0].strInstructions,
             imgThumb = meal[0].strMealThumb
         )
+
+        LaunchedEffect(Unit) {
+            CoroutineScope(Dispatchers.IO).launch {
+                isFavorite=viewmodel.existMealInDB(meal[0].idMeal.toInt())
+            }
+        }
+
+
 
         Column(
             modifier = Modifier
@@ -107,10 +121,16 @@ fun MealDetailScreenView(data: MealResponse) {
                         .clickable {
                             isFavorite = !isFavorite
 
-                            // Save to database
+//                             Save to database
 //                            CoroutineScope(Dispatchers.IO).launch {
-////                                viewmodel.saveFavMealDB(mealEntity)
-//                                Timber.d("MealDetailScreenView","Added to favorites!")
+                                if (isFavorite) {
+                                    viewmodel.saveFavMealDB(mealEntity)
+                                    Timber.d("Meal added to favorites!")
+                                } else {
+                                    // If it's not a favorite anymore, you can delete it (optional)
+                                    viewmodel.favoriteDeleteMeal(meal[0].idMeal.toInt())
+                                    Timber.d("Meal removed from favorites!")
+                                }
 //                            }
                         }
                         .border(
