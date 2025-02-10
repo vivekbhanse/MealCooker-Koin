@@ -19,7 +19,7 @@ fun AppNavigation() {
         composable("biometricAuthScreen") {
             BiometricAuthScreen(navController = navController)
         }
-        composable("mealScreen") {
+        composable("mealDetail/{mealId}") {
             MealScreen(navController = navController)
         }
     }
