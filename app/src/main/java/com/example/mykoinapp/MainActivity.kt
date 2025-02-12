@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.mykoinapp.presentation.ProfileScreen
 import com.example.mykoinapp.presentation.Screen
 import com.example.mykoinapp.presentation.fav_meal.FavMealListScreen
 import com.example.mykoinapp.presentation.home.AppTopBar
@@ -78,7 +79,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     ) // Pass the data
                 }
                 composable(Screen.Favorites.route) { FavMealListScreen() }
-                composable(Screen.Profile.route) { }
+                composable(Screen.Profile.route) { ProfileScreen()}
                 composable(Screen.Search.route) { }
             }
         }
