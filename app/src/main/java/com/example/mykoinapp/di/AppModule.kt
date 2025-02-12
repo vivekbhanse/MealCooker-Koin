@@ -12,6 +12,7 @@ import com.example.mykoinapp.domain.usecases.CheckFavoriteMealUseCase
 import com.example.mykoinapp.domain.usecases.FavoriteMealsUseCase
 import com.example.mykoinapp.domain.usecases.LetterApiUseCase
 import com.example.mykoinapp.domain.usecases.MealByIdUseCase
+import com.example.mykoinapp.domain.usecases.MealsByCategoriesUseCase
 import com.example.mykoinapp.domain.usecases.SaveUnSaveMealUseCase
 import com.example.mykoinapp.presentation.fav_meal.FavoriteMealViewModel
 import com.example.mykoinapp.presentation.home.HomeViewModel
@@ -57,13 +58,14 @@ val useCaseModule = module {
     factory { FavoriteMealsUseCase(get()) }
     factory { SaveUnSaveMealUseCase(get()) }
     factory { CheckFavoriteMealUseCase(get()) }
+    factory { MealsByCategoriesUseCase(get()) }
 }
 
 // ViewModel Module
 val viewModelModule = module {
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get() ,get()) }
     viewModel { MealDetailsViewModel(get(), get(), get()) }
-    viewModel { FavoriteMealViewModel(get()) }
+    viewModel { FavoriteMealViewModel(get(), get()) }
 }
 
 // App Module (combining all other modules)

@@ -17,5 +17,5 @@ interface MealDao {
     suspend fun doesMealExist(mealId: Int): Boolean
 
     @Query("DELETE FROM `favorite-meals` WHERE id = :mealId")
-    suspend fun deleteMealById(mealId: Int)
+    suspend fun deleteMealById(mealId: Int):Int
 }

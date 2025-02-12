@@ -32,5 +32,14 @@ class MealRepositoryImpl(private val apiService: ApiService) : MealRepository {
         val response = apiService.getMealsById(mealId = mealId)
         emit(ApiResult.Success(response))
     }.onStart { emit(ApiResult.Loading) }.catch { e -> emit(ApiResult.Error(e.message ?: "Error")) }
+
+    override suspend fun getMealsByCategoryName(selectedCategory: String): Flow<ApiResult<MealResponse>> =
+        flow{
+        emit(ApiResult.Loading)
+        val response = apiService.getMealsByCategoryName(selectedCategory = selectedCategory)
+        emit(ApiResult.Success(response))
+    }.onStart { emit(ApiResult.Loading) }.catch { e -> emit(ApiResult.Error(e.message ?: "Error")) }
+
 }
+
 

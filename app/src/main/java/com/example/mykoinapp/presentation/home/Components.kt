@@ -18,15 +18,29 @@ import coil.transform.RoundedCornersTransformation
 import com.example.mykoinapp.R
 import com.example.mykoinapp.data.dto.MealResponse
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.mykoinapp.data.dto.CategoryResponse
 import com.example.mykoinapp.ui.theme.DarkBlue
@@ -89,7 +103,10 @@ fun EnhancedImageFromUrl(strMeal: String, height: Int) {
 }
 
 @Composable
-fun ShowMealHorizontal(data: CategoryResponse) {
+fun ShowMealHorizontal(data: CategoryResponse, categoryCallback: (String) -> Unit) {
+    // Single state to track selected item index
+    var selectedIndex by rememberSaveable { mutableStateOf<Int>(0) }
+
     // Use LazyRow for horizontal sliding
     LazyRow(
         modifier = Modifier
@@ -97,34 +114,55 @@ fun ShowMealHorizontal(data: CategoryResponse) {
             .padding(8.dp)
     ) {
         val mealData = data.categories
-        mealData?.let {
-            items(it.size) { index ->
-                val backgroundColor = if (index % 2 == 0) DeepBlue else SlateGray
-                Card(
+        items(mealData.size) { index ->
+            val isSelected = selectedIndex == index // Only the selected index is true
+
+            Card(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .wrapContentHeight()
+                    .width(300.dp)
+                    .clickable {
+                        // Update the selected category and index
+                        categoryCallback(mealData[index].strCategory)
+                        selectedIndex = if (isSelected) 0 else index
+                    },
+                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
+            ) {
+                Box(
                     modifier = Modifier
+                        .background(if (isSelected) DeepBlue else SlateGray)
                         .padding(8.dp)
-                        .wrapContentHeight()
-                        .width(300.dp),
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 10.dp
-                    )
                 ) {
-                    Column(modifier = Modifier.background(backgroundColor)) {
-                        EnhancedImageFromUrl(
-                            mealData[index].strCategoryThumb,
-                            100
-                        ) // Pass image URL
-                        Text(
-                            text = "${index + 1}. Category : ${mealData[index].strCategory}",
-                            modifier = Modifier.padding(8.dp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                    // Show the selection button (checkmark or circle)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            EnhancedImageFromUrl(
+                                mealData[index].strCategoryThumb,
+                                100
+                            ) // Display image
+                            Text(
+                                text = "${index + 1}. Category: ${mealData[index].strCategory}",
+                                modifier = Modifier.padding(8.dp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
 
+                        // Selection button (Checkmark or Circle)
+                        Icon(
+                            imageVector = if (isSelected) Icons.Filled.CheckCircle else Icons.Filled.AddCircle,
+                            tint = if (isSelected) Color.Green else Color.LightGray,
+                            contentDescription = if (isSelected) "Selected" else "Unselected",
+                            modifier = Modifier.padding(end = 8.dp)
                         )
-
                     }
                 }
             }
         }
     }
 }
+

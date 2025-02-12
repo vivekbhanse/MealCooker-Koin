@@ -12,9 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.mykoinapp.presentation.ProfileScreen
 import com.example.mykoinapp.presentation.Screen
 import com.example.mykoinapp.presentation.fav_meal.FavMealListScreen
 import com.example.mykoinapp.presentation.home.AppTopBar
@@ -56,7 +59,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     Scaffold(
         topBar = { AppTopBar() },  // ✅ Add top bar
-        bottomBar = { BottomNavigationBar(navController) }  // ✅ Add bottom bar
+        bottomBar = {
+
+            if (shouldShowBottomBar(navController)) {
+                BottomNavigationBar(navController)
+            }
+        }  // ✅ Add bottom bar
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             NavHost(navController = navController, startDestination = Screen.Home.route) {
@@ -65,14 +73,23 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 composable(Screen.Home.route) { ShowMealListWithSwipeRefresh(navController) }
                 composable(Screen.MealDetailsPage.route) { backStackEntry ->
                     val mealId = backStackEntry.arguments?.getString("mealId") ?: ""
-                    MealDetailScreen(navController = navController,mealId = mealId ) // Pass the data
+                    MealDetailScreen(
+                        navController = navController,
+                        mealId = mealId
+                    ) // Pass the data
                 }
                 composable(Screen.Favorites.route) { FavMealListScreen() }
-                composable(Screen.Profile.route) {  }
-                composable(Screen.Search.route) {  }
+                composable(Screen.Profile.route) { ProfileScreen()}
+                composable(Screen.Search.route) { }
             }
         }
     }
+}
+
+@Composable
+fun shouldShowBottomBar(navController: NavController): Boolean {
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+    return currentRoute != Screen.MealDetailsPage.route
 }
 
 
