@@ -6,7 +6,7 @@ class CheckFavoriteMealUseCase (private val localFavMealRepository: LocalFavMeal
     suspend  fun invoke1(mealId: Int): Boolean  {
         return localFavMealRepository.existFavoriteMeal(mealId)
     }
-    suspend  fun invoke2(mealId: Int)  {
+    suspend  fun invoke2(mealId: Int):Int  {
         return localFavMealRepository.existsDeleteMealById(mealId)
     }
 }

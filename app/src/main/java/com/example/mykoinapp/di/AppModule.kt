@@ -65,7 +65,7 @@ val useCaseModule = module {
 val viewModelModule = module {
     viewModel { HomeViewModel(get(), get() ,get()) }
     viewModel { MealDetailsViewModel(get(), get(), get()) }
-    viewModel { FavoriteMealViewModel(get()) }
+    viewModel { FavoriteMealViewModel(get(), get()) }
 }
 
 // App Module (combining all other modules)

@@ -19,7 +19,7 @@ class LocalFavMealRepositoryImpl(private val mealDao: MealDao) : LocalFavMealRep
         return mealDao.doesMealExist(meal)
     }
 
-    override suspend fun existsDeleteMealById(mealId: Int) {
+    override suspend fun existsDeleteMealById(mealId: Int):Int {
         return mealDao.deleteMealById(mealId)
     }
 
