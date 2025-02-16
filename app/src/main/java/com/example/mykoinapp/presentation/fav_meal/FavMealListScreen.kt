@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.mykoinapp.presentation.home.EnhancedImageFromUrl
+import com.example.mykoinapp.presentation.home.getRandomColor
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
 import kotlinx.coroutines.CoroutineScope
@@ -59,7 +60,7 @@ fun FavMealListScreen() {
             val mealData = favMeals
             mealData.let {
                 items(it.size) { index ->
-                    val backgroundColor = if (index % 2 == 0) DeepBlue else SlateGray
+                    val backgroundColor = getRandomColor()
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .clickable {
@@ -94,11 +95,13 @@ fun FavMealListScreen() {
                             }
                             Text(
                                 text = "${index + 1}. Meal : " + mealData[index].name,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                color = Color.Black
                             )
                             Text(
                                 text = "Area : " + mealData[index].area,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                color = Color.Black
                             )
 
 

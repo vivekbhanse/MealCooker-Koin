@@ -17,6 +17,7 @@ import com.example.mykoinapp.domain.usecases.SaveUnSaveMealUseCase
 import com.example.mykoinapp.presentation.fav_meal.FavoriteMealViewModel
 import com.example.mykoinapp.presentation.home.HomeViewModel
 import com.example.mykoinapp.presentation.mealsSeletion.MealDetailsViewModel
+import com.example.mykoinapp.presentation.search.SearchableListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -66,6 +67,7 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get(), get() ,get()) }
     viewModel { MealDetailsViewModel(get(), get(), get()) }
     viewModel { FavoriteMealViewModel(get(), get()) }
+    viewModel { SearchableListViewModel(get()) }
 }
 
 // App Module (combining all other modules)

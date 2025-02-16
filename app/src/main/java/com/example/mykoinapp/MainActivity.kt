@@ -1,6 +1,7 @@
 package com.example.mykoinapp
 
 import BiometricAuthScreen
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
@@ -17,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.mykoinapp.presentation.ProfileScreen
+import com.example.mykoinapp.presentation.profile.ProfileScreen
 import com.example.mykoinapp.presentation.Screen
 import com.example.mykoinapp.presentation.fav_meal.FavMealListScreen
 import com.example.mykoinapp.presentation.home.AppTopBar
@@ -25,6 +27,7 @@ import com.example.mykoinapp.presentation.home.ShowMealListWithSwipeRefresh
 import com.example.mykoinapp.presentation.mealsSeletion.MealDetailScreen
 import com.example.mykoinapp.presentation.navhost.AppNavigation
 import com.example.mykoinapp.presentation.navhost.BottomNavigationBar
+import com.example.mykoinapp.presentation.search.SearchableList
 import com.example.mykoinapp.ui.theme.DarkBlue
 import com.example.mykoinapp.ui.theme.MyKoinAppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -56,7 +59,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(DarkBlue)
-
+    val context = LocalContext.current
     Scaffold(
         topBar = { AppTopBar() },  // ✅ Add top bar
         bottomBar = {
@@ -79,8 +82,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     ) // Pass the data
                 }
                 composable(Screen.Favorites.route) { FavMealListScreen() }
-                composable(Screen.Profile.route) { ProfileScreen()}
-                composable(Screen.Search.route) { }
+                composable(Screen.Profile.route) { ProfileScreen() }
+                composable(Screen.Search.route) {
+                    SearchableList(navController = navController)
+                }
             }
         }
     }

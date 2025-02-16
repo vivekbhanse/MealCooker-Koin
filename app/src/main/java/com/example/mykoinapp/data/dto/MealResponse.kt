@@ -1,5 +1,7 @@
 package com.example.mykoinapp.data.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class MealResponse(
-    val meals: List<Meal> ?= null
+    @SerializedName("meals") val meals: List<Meal>?=null
 )
