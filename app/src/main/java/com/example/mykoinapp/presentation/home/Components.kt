@@ -46,6 +46,8 @@ import com.example.mykoinapp.data.dto.CategoryResponse
 import com.example.mykoinapp.ui.theme.DarkBlue
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
+import com.example.mykoinapp.ui.theme.color1
+import com.example.mykoinapp.ui.theme.color2
 import com.neo.wave.WaveSpeed
 import com.neo.wave.WaveView
 
@@ -131,7 +133,7 @@ fun ShowMealHorizontal(data: CategoryResponse, categoryCallback: (String) -> Uni
             ) {
                 Box(
                     modifier = Modifier
-                        .background(if (isSelected) DeepBlue else SlateGray)
+                        .background(if (index % 2 == 0) color1 else color2)
                         .padding(8.dp)
                 ) {
                     // Show the selection button (checkmark or circle)

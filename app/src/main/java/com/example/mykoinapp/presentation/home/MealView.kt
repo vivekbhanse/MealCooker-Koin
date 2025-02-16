@@ -1,5 +1,6 @@
 package com.example.mykoinapp.presentation.home
 
+import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -26,9 +27,11 @@ import com.example.mykoinapp.data.dto.MealResponse
 import com.example.mykoinapp.domain.states.ApiResult
 import com.example.mykoinapp.ui.theme.DeepBlue
 import com.example.mykoinapp.ui.theme.SlateGray
+import com.example.mykoinapp.ui.theme.colorArray
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
+import kotlin.random.Random
 
 @Composable
 fun MealScreen(
@@ -81,7 +84,8 @@ fun ShowMealList(data: MealResponse, navController: NavController, selectedCateg
         val mealData = data.meals
         mealData?.let {
             items(it.size) { index ->
-                val backgroundColor = if (index % 2 == 0) DeepBlue else SlateGray
+//                val backgroundColor = if (index % 2 == 0) DeepBlue else SlateGray
+                val backgroundColor = getRandomColor()
                 Card(modifier = Modifier
                     .padding(8.dp)
                     .clickable {
@@ -108,4 +112,8 @@ fun ShowMealList(data: MealResponse, navController: NavController, selectedCateg
             }
         }
     }
+
+}
+fun getRandomColor(): androidx.compose.ui.graphics.Color {
+    return colorArray[Random.nextInt(colorArray.size)]
 }

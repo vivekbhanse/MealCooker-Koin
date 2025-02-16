@@ -16,3 +16,10 @@ val LightBlue = Color(0xFFD1E9F6) // Hex for #D1E9F6
 val LightBeige = Color(0xFFF6EACB) // Hex for #F6EACB
 val DeepBlue = Color(0xFF03346E)  // Hex for #03346E
 val SlateGray = Color(0xFF344C64) // Hex for #344C64
+
+val color1 = Color(0xFFF6D6D6) // Hex: F6D6D6
+val color2 = Color(0xFFF6F7C4) // Hex: F6F7C4
+val color3 = Color(0xFFA1EEBD) // Hex: A1EEBD
+val color4 = Color(0xFF7BD3EA) // Hex: 7BD3EA
+
+val colorArray = arrayOf(color1, color2, color3, color4)

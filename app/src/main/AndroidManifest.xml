@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -19,6 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyKoinApp"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MyKoinApp">
+        </activity>
+
         <meta-data
             android:name="androidx.core.splashscreen.SplashScreenIcon"
             android:resource="@drawable/dessert" />
@@ -26,8 +32,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MyKoinApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
