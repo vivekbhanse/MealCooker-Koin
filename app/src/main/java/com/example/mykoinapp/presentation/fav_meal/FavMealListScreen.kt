@@ -95,11 +95,13 @@ fun FavMealListScreen() {
                             }
                             Text(
                                 text = "${index + 1}. Meal : " + mealData[index].name,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                color = Color.Black
                             )
                             Text(
                                 text = "Area : " + mealData[index].area,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                color = Color.Black
                             )
 
 

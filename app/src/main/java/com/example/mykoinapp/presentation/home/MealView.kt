@@ -1,6 +1,8 @@
 package com.example.mykoinapp.presentation.home
 
 import android.graphics.Color
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mykoinapp.data.dto.CategoryResponse
@@ -73,6 +76,7 @@ fun MealScreen(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ShowMealList(data: MealResponse, navController: NavController, selectedCategory: String) {
     val isClicked = remember { mutableStateOf(false) }
@@ -100,13 +104,17 @@ fun ShowMealList(data: MealResponse, navController: NavController, selectedCateg
                     Column(modifier = Modifier.background(backgroundColor)) {
                         EnhancedImageFromUrl(mealData[index].strMealThumb, 250) // Pass image URL
                         Text(
-                            text = "${index + 1}. Meal : " + mealData[index].strMeal,
-                            modifier = Modifier.padding(8.dp)
+                            text = "Meal ID : " + mealData[index].idMeal,
+                            modifier = Modifier.padding(8.dp),
+                            androidx.compose.ui.graphics.Color.Black
                         )
+
                         Text(
-                            text = "Area : " + mealData[index].strCategory,
-                            modifier = Modifier.padding(8.dp)
+                            text = "${index + 1}. Meal : " + mealData[index].strMeal,
+                            modifier = Modifier.padding(8.dp),
+                            androidx.compose.ui.graphics.Color.Black
                         )
+
                     }
                 }
             }

@@ -84,7 +84,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 composable(Screen.Favorites.route) { FavMealListScreen() }
                 composable(Screen.Profile.route) { ProfileScreen() }
                 composable(Screen.Search.route) {
-                    SearchableList()
+                    SearchableList(navController = navController)
                 }
             }
         }

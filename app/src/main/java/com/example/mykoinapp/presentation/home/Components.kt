@@ -150,7 +150,8 @@ fun ShowMealHorizontal(data: CategoryResponse, categoryCallback: (String) -> Uni
                                 text = "${index + 1}. Category: ${mealData[index].strCategory}",
                                 modifier = Modifier.padding(8.dp),
                                 maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
+                                color = Color.Black
                             )
                         }
 
