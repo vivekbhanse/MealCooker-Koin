@@ -128,4 +128,9 @@ dependencies {
     implementation (libs.accompanist.swiperefresh.v02413rc)
 
     implementation(libs.wave)
+
+    //Razor
+    implementation (libs.checkout)
+    //TimeLine View
+    implementation(libs.jetlime)
 }

@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">MyKoinApp</string>
+    <string name="app_name">Meal Cooker</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_payments">PaymentsActivity</string>
+    <string name="title_activity_order">OrderActivity</string>
+    <string name="title_activity_payment">PaymentActivity</string>
 </resources>
