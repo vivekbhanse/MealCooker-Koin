@@ -13,7 +13,7 @@ import com.example.mykoinapp.presentation.Screen
 import com.example.mykoinapp.ui.theme.DarkBlue
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(Screen.Home, Screen.Search, Screen.Favorites, Screen.Profile)
+    val items = listOf(Screen.Home, Screen.Search, Screen.Favorites,Screen.Order, Screen.Profile)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
     NavigationBar(containerColor = DarkBlue) {  // Dark background color

@@ -105,6 +105,26 @@ fun EnhancedImageFromUrl(strMeal: String, height: Int) {
 }
 
 @Composable
+fun EnhancedImageFromUrlWidth(strMeal: String, height: Int, width: Int) {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current).data(strMeal)
+            .placeholder(R.drawable.dessert) // Placeholder while loading
+            .error(R.drawable.dessert) // Error image if loading fails
+//            .crossfade(true).size(Size.ORIGINAL)
+            .transformations(RoundedCornersTransformation(20f)) // Optional: Rounded corners
+            .build()
+    )
+
+    Image(
+        painter = painter,
+        contentDescription = "Enhanced Image",
+        modifier = Modifier
+            .width(width.dp) // Set the width to 70 dp
+            .height(height.dp)
+    )
+}
+
+@Composable
 fun ShowMealHorizontal(data: CategoryResponse, categoryCallback: (String) -> Unit) {
     // Single state to track selected item index
     var selectedIndex by rememberSaveable { mutableStateOf<Int>(0) }

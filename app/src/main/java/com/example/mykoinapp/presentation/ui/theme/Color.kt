@@ -21,5 +21,6 @@ val color1 = Color(0xFFF6D6D6) // Hex: F6D6D6
 val color2 = Color(0xFFF6F7C4) // Hex: F6F7C4
 val color3 = Color(0xFFA1EEBD) // Hex: A1EEBD
 val color4 = Color(0xFF7BD3EA) // Hex: 7BD3EA
-
+val OrangeColor = Color(0xFFF4891F)
+val DarkGreen = Color(0xFF006400)
 val colorArray = arrayOf(color1, color2, color3, color4)
