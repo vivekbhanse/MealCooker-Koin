@@ -22,7 +22,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,6 +46,7 @@ import com.pushpal.jetlime.ItemsList
 import com.pushpal.jetlime.JetLimeEvent
 import com.pushpal.jetlime.JetLimeEventDefaults
 import com.pushpal.jetlime.JetLimeRow
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -54,7 +59,18 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
     ) {
         items(orderedItems.size) { index ->
             val order = orderedItems[index]
-            val completedStages = getOrderTimeRange(order.orderTime)
+            var completedStages by remember { mutableStateOf(getOrderTimeRange(order.orderTime)) }
+            var remainingTime by remember { mutableStateOf(getRemainingTime(order.orderTime)) }
+
+            // Timer effect
+            LaunchedEffect(order.orderTime) {
+                while (remainingTime > 0) {
+                    delay(1000) // Update every second
+                    completedStages = getOrderTimeRange(order.orderTime)
+                    remainingTime = getRemainingTime(order.orderTime)
+                }
+            }
+
             Card(
                 shape = RoundedCornerShape(16.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -95,6 +111,20 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
                                         contentDescription = "Delivered Success",
                                         modifier = Modifier.size(48.dp)
                                     )
+                                }else{
+
+                                    // Timer display (Shows in minutes and seconds)
+                                    if (remainingTime > 0) {
+                                        val minutes = remainingTime / 60
+                                        val seconds = remainingTime % 60
+                                        Text(
+                                            text = "Time left: ${"%02d".format(minutes)}m ${"%02d".format(seconds)}s",
+                                            fontSize = 12.sp,
+                                            color = Color.Blue,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
+
                                 }
                             }
                         }
@@ -166,9 +196,9 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
 fun getOrderTimeStatus(orderTime: Long): Int {
     val currentTime = System.currentTimeMillis()
 
-    val fifteenMinutesAgo = currentTime - (15 * 60 * 1000) // 15 minutes in milliseconds
-    val thirtyMinutesAgo = currentTime - (30 * 60 * 1000)  // 30 minutes in milliseconds
-    val oneHourAgo = currentTime - (60 * 60 * 1000)        // 1 hour in milliseconds
+    val fifteenMinutesAgo = currentTime - (5 * 60 * 1000) // 15 minutes in milliseconds
+    val thirtyMinutesAgo = currentTime - (15 * 60 * 1000)  // 30 minutes in milliseconds
+    val oneHourAgo = currentTime - (30 * 60 * 1000)        // 1 hour in milliseconds
 
     return when {
         orderTime >= fifteenMinutesAgo -> 0
@@ -185,6 +215,15 @@ fun getOrderTimeRange(orderTime: Long): List<Int> {
         0 -> listOf(0)
         else -> emptyList() // If more than 1 hour ago
     }
+}
+
+fun getRemainingTime(orderTime: Long): Int {
+    val currentTime = System.currentTimeMillis()
+    val elapsedTime = (currentTime - orderTime) / 1000 // Convert to seconds
+
+    val stageDurations = listOf(300, 900, 1800) // Durations for each stage in seconds
+
+    return stageDurations.firstOrNull { it > elapsedTime }?.minus(elapsedTime.toInt()) ?: 0
 }
 
 
