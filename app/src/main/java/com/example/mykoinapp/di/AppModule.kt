@@ -2,6 +2,7 @@ package com.example.mykoinapp.di
 
 import androidx.room.Room
 import com.example.mykoinapp.data.local.roomdb.AppDatabase
+import com.example.mykoinapp.data.local.store.DataStoreManager
 import com.example.mykoinapp.data.remote.ApiService
 import com.example.mykoinapp.data.repo.LocalFavMealRepositoryImpl
 import com.example.mykoinapp.data.repo.MealCartDaoImpl
@@ -22,10 +23,14 @@ import com.example.mykoinapp.domain.usecases.meal_orders.MealCartUseCase
 import com.example.mykoinapp.domain.usecases.meal_orders.MealOrderUseCase
 import com.example.mykoinapp.presentation.fav_meal.FavoriteMealViewModel
 import com.example.mykoinapp.presentation.home.HomeViewModel
+import com.example.mykoinapp.presentation.login.LoginViewModel
 import com.example.mykoinapp.presentation.mealsSeletion.MealDetailsViewModel
 import com.example.mykoinapp.presentation.orders.CartViewModel
 import com.example.mykoinapp.presentation.orders.OrdersViewModel
+import com.example.mykoinapp.presentation.profile.ProfileViewModel
 import com.example.mykoinapp.presentation.search.SearchableListViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -53,6 +58,8 @@ val dataModule = module {
     single { get<AppDatabase>().mealDao() }
     single { get<AppDatabase>().orderDao() }
     single { get<AppDatabase>().cartDao() }
+
+    single { DataStoreManager(get()) }
 }
 
 // Repository Module
@@ -83,12 +90,19 @@ val viewModelModule = module {
     viewModel { FavoriteMealViewModel(get(), get()) }
     viewModel { SearchableListViewModel(get()) }
     viewModel { CartViewModel(get()) }
-    viewModel { OrdersViewModel(get()) }
+    viewModel { OrdersViewModel(get(),get(),get()) }
+    viewModel { LoginViewModel(get(),get(),get()) }
+    viewModel { ProfileViewModel(get(),get(),get()) }
+}
+
+val firebaseModule = module {
+    single { FirebaseAuth.getInstance() }
+    single {FirebaseFirestore.getInstance() }
 }
 
 // App Module (combining all other modules)
 val appModule = module {
-    includes(dataModule, repositoryModule, useCaseModule, viewModelModule)
+    includes(dataModule, repositoryModule, useCaseModule, viewModelModule,firebaseModule)
 }
 
 

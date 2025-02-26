@@ -12,4 +12,7 @@ interface MealOrderDao {
 
     @Query("SELECT * FROM orders ORDER BY orderId DESC")
     suspend fun getOrders(): List<OrderEntity>
+
+    @Query("DELETE FROM orders")
+    suspend fun clearOrders()
 }

@@ -11,4 +11,7 @@ class MealOrderUseCase(private val mealOrderRepository: MealOrderRepository) {
     suspend fun saveAllOrders(order: List<OrderEntity>){
         return mealOrderRepository.saveAllOrders(order)
     }
+    suspend fun clearAllOrders(){
+        return mealOrderRepository.clearAllOrders()
+    }
 }

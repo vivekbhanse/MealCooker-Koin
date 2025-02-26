@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 
 }
 
@@ -81,7 +82,7 @@ dependencies {
 
     // Koin for Android
     implementation(libs.insert.koin.koin.android)
-    implementation (libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.compose)
     //Coroutine
     implementation(libs.kotlinx.coroutines.android.v160)
 
@@ -124,13 +125,30 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // SystemBars
-    implementation (libs.accompanist.systemuicontroller)
-    implementation (libs.accompanist.swiperefresh.v02413rc)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.swiperefresh.v02413rc)
 
     implementation(libs.wave)
 
     //Razor
-    implementation (libs.checkout)
+    implementation(libs.checkout)
     //TimeLine View
     implementation(libs.jetlime)
+
+    //login auth
+
+    implementation(libs.play.services.auth)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.androidx.credentials)
+    implementation(libs.googleid)
+    implementation(libs.firebase.auth.ktx)
+    //lottie
+    implementation(libs.lottie.compose)
+    // Local Encrypted Storage
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.security.crypto) // For Encryption
+    //Firebase FireStore
+    implementation(libs.firebase.firestore.ktx)
+
 }

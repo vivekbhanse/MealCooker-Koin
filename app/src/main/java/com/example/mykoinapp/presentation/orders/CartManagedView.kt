@@ -279,6 +279,8 @@ fun CartManagedView(items: MutableList<MealCartEntity>) {
                 withContext(Dispatchers.IO) {
                     // Save all orders
                     ordersViewModel.saveAllOrder(orders)
+                    //save on firebase
+//                    ordersViewModel.saveOrdersToFirestore(orders)
                     // Clear cart after order success
                     cartViewModel.deleteAllMealsAfterOrderSuccess()
                 }

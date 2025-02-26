@@ -19,6 +19,17 @@
         android:theme="@style/Theme.MyKoinApp"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.login.LoginActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyKoinApp" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".presentation.orders.PaymentActivity"
             android:exported="false"
             android:label="@string/title_activity_payment"
@@ -34,11 +45,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/Theme.MyKoinApp">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

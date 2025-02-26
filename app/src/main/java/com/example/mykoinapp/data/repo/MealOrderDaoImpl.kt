@@ -13,5 +13,9 @@ class MealOrderDaoImpl(private val mealOrderDao: MealOrderDao) : MealOrderReposi
         return mealOrderDao.insertOrder(order)
     }
 
+    override suspend fun clearAllOrders() {
+        return mealOrderDao.clearOrders()
+    }
+
 
 }

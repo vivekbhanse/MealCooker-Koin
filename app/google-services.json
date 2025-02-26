@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1021283060565",
+    "project_id": "meal-coocker",
+    "storage_bucket": "meal-coocker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021283060565:android:7e40005d2075f5229b3ddc",
+        "android_client_info": {
+          "package_name": "com.example.mykoinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021283060565-ltrkrmmo8iogtvrhdjhdnd638b585jl2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mykoinapp",
+            "certificate_hash": "f4fef3a2c1eb1d22bada7ea2059a0b814dc773a9"
+          }
+        },
+        {
+          "client_id": "1021283060565-5vtaojpk72hnrua66km0rblt0rk0c6mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS4v-w95P6zyozlfHBde8wJbjETkSYon4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021283060565-5vtaojpk72hnrua66km0rblt0rk0c6mi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,4 +4,6 @@
     <string name="title_activity_payments">PaymentsActivity</string>
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_payment">PaymentActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="default_web_client_id">1021283060565-5vtaojpk72hnrua66km0rblt0rk0c6mi.apps.googleusercontent.com</string>
 </resources>
