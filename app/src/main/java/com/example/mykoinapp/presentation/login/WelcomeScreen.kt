@@ -2,8 +2,10 @@ package com.example.mykoinapp.presentation.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,15 +37,21 @@ import com.example.mykoinapp.R
 
 
 @Composable
-fun WelcomeScreen(onButtonClicked: () -> Unit) { // Corrected function signature
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_delivery_orange))
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        iterations = LottieConstants.IterateForever, // Keeps looping infinitely
-        restartOnPlay = true
+fun WelcomeScreen(onButtonClicked: () -> Unit) {
+    val composition1 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_delivery_orange))
+    val progress1 by animateLottieCompositionAsState(
+        composition = composition1,
+        iterations = LottieConstants.IterateForever
     )
-    val caveatFont = FontFamily(Font(R.font.caveat_variablefont_wght))
 
+    val composition2 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_map_bike))
+    val progress2 by animateLottieCompositionAsState(
+        composition = composition2,
+        iterations = LottieConstants.IterateForever
+    )
+
+    val caveatFont = FontFamily(Font(R.font.caveat_variablefont_wght))
+    val randomNumber by remember { mutableStateOf((0..1).random()) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +59,6 @@ fun WelcomeScreen(onButtonClicked: () -> Unit) { // Corrected function signature
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Logo
         Text(
             text = stringResource(R.string.app_name),
             fontSize = 40.sp,
@@ -59,18 +68,22 @@ fun WelcomeScreen(onButtonClicked: () -> Unit) { // Corrected function signature
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Illustration
-        LottieAnimation(
-            composition = composition,
-            progress = { progress },
-            modifier = Modifier
-                .size(200.dp)
-                .align(Alignment.CenterHorizontally)
-        )
+        // Display two Lottie animations simultaneously
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            LottieAnimation(
+                composition = if (randomNumber==0) composition1 else composition2,
+                progress = {  if (randomNumber==0) progress1 else progress2 },
+                modifier = Modifier.fillMaxWidth().height(250.dp)
+            )
+
+
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Welcome Text
         Text(
             text = "Welcome",
             fontSize = 32.sp,
@@ -89,9 +102,8 @@ fun WelcomeScreen(onButtonClicked: () -> Unit) { // Corrected function signature
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Button
         Button(
-            onClick = onButtonClicked, // Correctly pass the function reference
+            onClick = onButtonClicked,
             colors = ButtonDefaults.buttonColors(Color(0xFF6200EE))
         ) {
             Text(text = "Getting Started", color = Color.White)
@@ -99,15 +111,10 @@ fun WelcomeScreen(onButtonClicked: () -> Unit) { // Corrected function signature
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Log In Text
-        TextButton(onClick = onButtonClicked) { // Correctly pass the function reference
+        TextButton(onClick = onButtonClicked) {
             Text(text = "Already have an account? Log In")
         }
     }
 }
 
-@Composable
-@Preview
-fun PreviewScreen(modifier: Modifier = Modifier) {
 
-}
