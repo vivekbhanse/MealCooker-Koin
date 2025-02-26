@@ -1,5 +1,6 @@
 package com.example.mykoinapp.presentation.orders
 
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -50,7 +51,7 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
+fun TimelineWithJetLime(orderedItems: List<OrderEntity>) {
     val items = listOf("Preparing\n food", "Assign to\nDelivery\npartner", "Delivered")
     LazyColumn(
         modifier = Modifier
@@ -66,8 +67,8 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
             LaunchedEffect(order.orderTime) {
                 while (remainingTime > 0) {
                     delay(1000) // Update every second
-                    completedStages = getOrderTimeRange(order.orderTime)
                     remainingTime = getRemainingTime(order.orderTime)
+                    completedStages = getOrderTimeRange(order.orderTime)
                 }
             }
 
@@ -111,14 +112,18 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
                                         contentDescription = "Delivered Success",
                                         modifier = Modifier.size(48.dp)
                                     )
-                                }else{
+                                } else {
 
                                     // Timer display (Shows in minutes and seconds)
                                     if (remainingTime > 0) {
                                         val minutes = remainingTime / 60
                                         val seconds = remainingTime % 60
                                         Text(
-                                            text = "Time left: ${"%02d".format(minutes)}m ${"%02d".format(seconds)}s",
+                                            text = "Time left: ${"%02d".format(minutes)}m ${
+                                                "%02d".format(
+                                                    seconds
+                                                )
+                                            }s",
                                             fontSize = 12.sp,
                                             color = Color.Blue,
                                             modifier = Modifier.padding(8.dp)
@@ -193,6 +198,7 @@ fun TimelineWithJetLime( orderedItems: List<OrderEntity>) {
 
 
 }
+
 fun getOrderTimeStatus(orderTime: Long): Int {
     val currentTime = System.currentTimeMillis()
 

@@ -28,7 +28,7 @@ class PaymentActivity : ComponentActivity(), PaymentResultListener {
             options.put("amount", amount * 100) // Convert to paise
 
             val prefill = org.json.JSONObject()
-            prefill.put("email", "test@example.com")
+            prefill.put("email", "nimapsports@gmail.com")
             prefill.put("contact", "9876543210")
             options.put("prefill", prefill)
 
