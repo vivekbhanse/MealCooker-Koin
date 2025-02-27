@@ -53,7 +53,7 @@ class LoginActivity : ComponentActivity() {
             loginViewModel.isLoggedIn.collectLatest { isLoggedIn ->
                 if (isLoggedIn) {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish() // Close LoginActivity
+                    finish()
                 }
             }
         }
@@ -78,8 +78,9 @@ class LoginActivity : ComponentActivity() {
             val displayName = account?.displayName
 
             if (!email.isNullOrEmpty() && !displayName.isNullOrEmpty()) {
-                loginViewModel.saveEmailPassword(email, "Default")
                 loginViewModel.saveUserToFirestore(email,"password",displayName)
+                loginViewModel.saveEmailPassword(email, "Default")
+
             }
 
         } catch (e: ApiException) {

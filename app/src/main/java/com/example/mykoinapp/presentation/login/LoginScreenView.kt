@@ -74,14 +74,14 @@ fun LoginScreenView(
 
     Box(modifier = Modifier
         .fillMaxSize()
-        .imePadding() // Adds padding when the keyboard is open
+        .imePadding()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()) // Enables scrolling when needed
+                .verticalScroll(rememberScrollState())
                 .padding(16.dp)
-                .focusable(true), // Ensures better focus handling
+                .focusable(true),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -133,7 +133,7 @@ fun LoginScreen(
     var showPassword by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) } // ✅ Loading state
+    var isLoading by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     val isFormValid = email.isNotBlank() && password.isNotBlank() && emailError == null
@@ -180,12 +180,13 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    isLoading = true // ✅ Show loading
+                    isLoading = true
                     logInWithEmail(auth, email, password) { success, error ->
-                        isLoading = false // ✅ Hide loading
+                        isLoading = false
                         if (success) {
                             Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show()
                             onLoginSuccess()
+                            loginViewModel.saveUserToFirestore(email, password, "fullName")
                             loginViewModel.saveEmailPassword(email, password)
                         } else {
                             Toast.makeText(context, error ?: "Login failed", Toast.LENGTH_SHORT)
@@ -193,7 +194,7 @@ fun LoginScreen(
                         }
                     }
                 },
-                enabled = isFormValid && !isLoading, // ✅ Disable when loading
+                enabled = isFormValid && !isLoading,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Log In", color = Color.White)
@@ -206,7 +207,6 @@ fun LoginScreen(
             }
         }
 
-        // ✅ Show loading indicator when logging in
         if (isLoading) {
             ProgressBars()
         }
@@ -227,7 +227,7 @@ fun SignUpScreen(
     var emailError by remember { mutableStateOf<String?>(null) }
     var fullNameError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) } // ✅ Loading state
+    var isLoading by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     val isFormValid = email.isNotBlank() && fullName.isNotBlank() && password.isNotBlank()
@@ -289,9 +289,9 @@ fun SignUpScreen(
 
             Button(
                 onClick = {
-                    isLoading = true // ✅ Show loading
+                    isLoading = true
                     signUpWithEmail(auth, email, password) { success, error ->
-                        isLoading = false // ✅ Hide loading
+                        isLoading = false
                         if (success) {
                             Toast.makeText(context, "Sign-up successful!", Toast.LENGTH_SHORT)
                                 .show()
@@ -303,7 +303,7 @@ fun SignUpScreen(
                         }
                     }
                 },
-                enabled = isFormValid && !isLoading, // ✅ Disable when loading
+                enabled = isFormValid && !isLoading,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Sign Up", color = Color.White)
@@ -316,7 +316,6 @@ fun SignUpScreen(
             }
         }
 
-        // ✅ Show progress indicator when signing up
         if (isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(50.dp),
